@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Vue.js directive for animating element to and from height: auto in a sliding motion",
   "main": "dist/vue-show-slide.min.js",
-  "private": true,
   "scripts": {
     "build": "gulp"
   },
