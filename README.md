@@ -2,6 +2,8 @@
 
 Original source code: [@phegman/v-show-slide](https://github.com/phegman/v-show-slide)
 
+Optimized for Vue 3
+
 A Vue.js directive for animating an element from `height: auto` to `height: 0px` and vice-versa.
 
 - 📦 **No dependencies**
