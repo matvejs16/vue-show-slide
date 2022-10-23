@@ -1,0 +1,38 @@
+{
+  "name": "vue-show-slide",
+  "version": "1.0.0",
+  "description": "Vue.js directive for animating element to and from height: auto in a sliding motion",
+  "private": true,
+  "scripts": {
+    "build": "gulp"
+  },
+  "keywords": [
+    "Vue.js",
+    "Vue",
+    "animate",
+    "v-show-slide",
+    "v-show",
+    "height auto",
+    "css animations",
+    "easing",
+    "easings",
+    "directive",
+    "slide up",
+    "slide down",
+    "slideUp",
+    "slideDown"
+  ],
+  "author": "Matvej Makushin <matvejs16@gmail.com>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@babel/core": "^7.19.6",
+    "@babel/preset-env": "^7.19.4",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-uglify": "^3.0.2",
+    "readable-stream": "^4.2.0"
+  }
+}
