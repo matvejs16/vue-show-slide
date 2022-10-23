@@ -52,6 +52,11 @@ const VShowSlide = {
         return target
     },
 
+    setTargetByEl(el, target) {
+        const targetIndex = this.targets.findIndex(target => target.el.isSameNode(el))
+        this.targets[targetIndex] = target
+    },
+
     /**
      * Set target property by element
      */
@@ -114,25 +119,25 @@ const VShowSlide = {
         Object.prototype.hasOwnProperty.call(binding, 'arg') &&
         typeof binding.arg === 'string'
         ) {
-        const argsArray = binding.arg.split(':')
-        const easing = this.validateEasing(argsArray)
-        const duration = this.validateDuration(argsArray)
+            const argsArray = binding.arg.split(':')
+            const easing = this.validateEasing(argsArray)
+            const duration = this.validateDuration(argsArray)
 
-        this.targets.push({
-            el,
-            duration,
-            durationInSeconds: `${duration / 1000}s`,
-            easing,
-            isAnimating: false,
-        })
+            this.targets.push({
+                el,
+                duration,
+                durationInSeconds: `${duration / 1000}s`,
+                easing,
+                isAnimating: false
+            })
         } else {
-        this.targets.push({
-            el,
-            duration: 300,
-            durationInSeconds: '0.3s',
-            easing: 'ease',
-            isAnimating: false,
-        })
+            this.targets.push({
+                el,
+                duration: 300,
+                durationInSeconds: '0.3s',
+                easing: 'ease',
+                isAnimating: false
+            })
         }
     },
 
@@ -172,14 +177,25 @@ const VShowSlide = {
      */
     initializeTarget(el, open) {
         // console.log('initializeTarget')
+        const computedData = window.getComputedStyle(el)
+        const paddingTop = parseInt(computedData.paddingTop) || 0
+        const paddingBottom = parseInt(computedData.paddingBottom) || 0
+
+        const target = this.getTargetByEl(el)
+        target.paddingTop = paddingTop
+        target.paddingBottom = paddingBottom
+        this.setTargetByEl(el, target)
+
         if (!open) {
             el.style.height = '0px'
             el.style.visibility = 'hidden'
+            el.style.paddingTop = '0'
+            el.style.paddingBottom = '0'
         }
 
-        const { easing, durationInSeconds } = this.getTargetByEl(el)
+        const { easing, durationInSeconds } = target
         el.style.overflow = 'hidden'
-        el.style.transition = `height ${easing} ${durationInSeconds}`
+        el.style.transition = `height ${durationInSeconds} ${easing}, padding ${durationInSeconds} ${easing}`
     },
 
     /**
@@ -198,10 +214,10 @@ const VShowSlide = {
     /**
      * Slide element open
      */
-    slideOpen(el) {
+    async slideOpen(el) {
         this.fireEvent(el, 'slide-open-start')
 
-        const { isAnimating, timeout, duration } = this.getTargetByEl(el)
+        const { isAnimating, timeout, duration, paddingTop, paddingBottom } = this.getTargetByEl(el)
 
         // Check if element is animating
         if (isAnimating) {
@@ -213,6 +229,8 @@ const VShowSlide = {
 
         // Make element visible again
         el.style.visibility = 'visible'
+        el.style.paddingTop = ''
+        el.style.paddingBottom = ''
 
         // Set element height to scroll height + calculated border height
         const scrollHeight = el.scrollHeight
@@ -220,7 +238,8 @@ const VShowSlide = {
         const borderBottom = parseFloat(computedStyle.getPropertyValue('border-bottom-width'))
         const borderTop = parseFloat(computedStyle.getPropertyValue('border-top-width'))
 
-        el.style.height = `${scrollHeight + borderBottom + borderTop}px`
+        // el.style.height = `${scrollHeight + borderBottom + borderTop}px`
+        el.style.height = `${scrollHeight + paddingTop + paddingBottom + borderBottom + borderTop}px`
 
         // Reset element height to auto after animating
         const newTimeout = setTimeout(() => {
@@ -256,6 +275,8 @@ const VShowSlide = {
 
         el.style.height = '0px'
         el.style.overflow = 'hidden'
+        el.style.paddingTop = '0'
+        el.style.paddingBottom = '0'
 
         // Update isAnimating after animation is done
         // And set visibility to `hidden`
