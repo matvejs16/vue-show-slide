@@ -18,7 +18,7 @@ gulp.task('default', async () => {
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(concat('v-show-slide.js'))
+        .pipe(concat('vue-show-slide.js'))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('dist'))
 
@@ -27,7 +27,7 @@ gulp.task('default', async () => {
         .pipe(babel({
             presets: ['@babel/env']
         }))
-        .pipe(concat('v-show-slide.min.js'))
+        .pipe(concat('vue-show-slide.min.js'))
         .pipe(uglify())
         .pipe(gulp.dest('dist'))
 });
