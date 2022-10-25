@@ -27,7 +27,7 @@
     "type": "git",
     "url": "https://github.com/matvejs16/vue-show-slide.git"
   },
-  "author": "Matvej Makushin <matvejs16@gmail.com>",
+  "author": "Matvej Makushin <matvejs16@genrem.eu>",
   "license": "GPL-3.0",
   "devDependencies": {
     "@babel/core": "^7.19.6",
