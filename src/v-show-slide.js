@@ -191,6 +191,7 @@ const VShowSlide = {
             el.style.visibility = 'hidden'
             el.style.paddingTop = '0'
             el.style.paddingBottom = '0'
+            el.style.boxSizing = 'border-box'
         }
 
         const { easing, durationInSeconds } = target
@@ -245,6 +246,7 @@ const VShowSlide = {
         const newTimeout = setTimeout(() => {
             el.style.height = 'auto'
             el.style.overflow = ''
+            el.style.boxSizing = ''
             this.setTargetPropertyByEl(el, 'isAnimating', false)
 
             this.fireEvent(el, 'slide-open-end')
@@ -277,6 +279,7 @@ const VShowSlide = {
         el.style.overflow = 'hidden'
         el.style.paddingTop = '0'
         el.style.paddingBottom = '0'
+        el.style.boxSizing = 'border-box'
 
         // Update isAnimating after animation is done
         // And set visibility to `hidden`
